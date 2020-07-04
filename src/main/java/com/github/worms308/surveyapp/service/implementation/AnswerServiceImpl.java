@@ -6,11 +6,10 @@ import com.github.worms308.surveyapp.service.AnswerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service("AnswerService")
 @AllArgsConstructor
 public class AnswerServiceImpl implements AnswerService {
 
@@ -27,7 +26,7 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public Answer add(Answer answer) {
-        return answerRepository.save(answer);
+    public Answer add(Answer item) {
+        return answerRepository.save(item);
     }
 }
