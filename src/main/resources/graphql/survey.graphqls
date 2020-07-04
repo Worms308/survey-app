@@ -1,0 +1,15 @@
+type Answer{
+    id: ID!,
+    value: String
+}
+
+type Question{
+    id: ID!,
+    value: String,
+    answers: [Answer]
+}
+
+type Query{
+    getQuestions: [Question]
+    getAnswers: [Answer]
+}
