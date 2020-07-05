@@ -16,13 +16,14 @@ public class Survey {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "survey_id")
     private Long id;
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @ManyToMany
     private Set<Question> questions;
 
     @OneToMany
+    @JoinColumn(name = "survey_id")
     private Set<UserSurvey> userSurveys;
 
     public Survey(String name) {

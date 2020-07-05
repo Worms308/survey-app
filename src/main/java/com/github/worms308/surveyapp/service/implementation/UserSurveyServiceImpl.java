@@ -30,7 +30,7 @@ public class UserSurveyServiceImpl implements UserSurveyService {
     }
 
     @Override
-    public UserSurvey add(UserSurvey item) {
+    public UserSurvey save(UserSurvey item) {
         return userSurveyRepository.save(item);
     }
 }

@@ -35,7 +35,7 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public Survey add(Survey item) {
+    public Survey save(Survey item) {
         return surveyRepository.save(item);
     }
 

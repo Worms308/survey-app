@@ -8,5 +8,4 @@ import java.util.Optional;
 public interface QuestionService extends Service<Question>{
 //    Optional<Question> findById(long id);
 //    List<Question> findAll();
-//    Question add(Question question);
 }

@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface Service <T> {
     Optional<T> findById(long id);
     List<T> findAll();
-    T add(T item);
+    T save(T item);
 }

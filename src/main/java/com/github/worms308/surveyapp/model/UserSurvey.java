@@ -21,8 +21,10 @@ public class UserSurvey {
     private LocalDate date;
 
     @ManyToOne
+    @JoinColumn(name = "survey_id")
     private Survey survey;
 
     @OneToMany
+    @JoinColumn(name = "user_survey_id")
     private Set<ChosenAnswer> chosenAnswers;
 }

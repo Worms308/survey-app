@@ -17,11 +17,18 @@ public class ChosenAnswer {
     private Long id;
 
     @ManyToMany
+    @JoinTable(
+            name = "answers_chosen_answers",
+            joinColumns = @JoinColumn(name = "chosen_answer_id"),
+            inverseJoinColumns = @JoinColumn(name = "answer_id")
+    )
     private Set<Answer> answers;
 
     @ManyToOne
+    @JoinColumn(name = "question_id")
     private Question question;
 
     @ManyToOne
+    @JoinColumn(name = "user_survey_id")
     private UserSurvey userSurvey;
 }

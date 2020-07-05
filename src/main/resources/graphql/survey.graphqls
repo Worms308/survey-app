@@ -1,23 +1,35 @@
-type Answer{
-    id: ID!,
+#input AnswerInput{
+#    value: String
+#}
+type AnswerDTO {
+    value: String
+}
+input AnswerDTOInput {
     value: String
 }
 
-type Question{
-    id: ID!,
+type QuestionDTO{
     value: String,
-    answers: [Answer]
+    answerDTOS: [AnswerDTO!]
+}
+input QuestionDTOInput{
+    value: String,
+    answerDTOS: [AnswerDTOInput!]
 }
 
-type Survey{
-    id: ID!,
-    name: String,
-    questions: [Question]
-}
+#type SurveyDTO{
+#    name: String,
+#    questions: [Question!]
+#}
 
 type Query{
-    getQuestions: [Question]
-    getAnswers: [Answer]
-    getSurveys: [Survey]
-    getSurveyByName(name: String): Survey
+    getQuestions: [QuestionDTO!]
+    getAnswers: [AnswerDTO!]
+#    getSurveys: [Survey!]
+#    getSurveyByName(name: String): Survey
+}
+
+type Mutation {
+    createAnswer(answer: AnswerDTOInput!): AnswerDTO
+    createQuestion(question: QuestionDTOInput!): QuestionDTO
 }
