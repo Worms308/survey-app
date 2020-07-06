@@ -30,7 +30,7 @@ public class SurveyServiceImpl implements SurveyService {
     @Transactional(readOnly = true)
     public List<Survey> findAll() {
         List<Survey> surveys = surveyRepository.findAll();
-        surveys.forEach(survey -> Hibernate.initialize(survey.getQuestions()));
+        surveys.forEach(this::initializeSurvey);
         return surveys;
     }
 
@@ -43,7 +43,12 @@ public class SurveyServiceImpl implements SurveyService {
     @Transactional(readOnly = true)
     public Optional<Survey> findByName(String name) {
         Optional<Survey> surveyOptional = surveyRepository.findByName(name);
-        surveyOptional.ifPresent(survey -> Hibernate.initialize(survey.getQuestions()));
+        surveyOptional.ifPresent(this::initializeSurvey);
         return surveyOptional;
+    }
+
+    private void initializeSurvey(Survey survey){
+        Hibernate.initialize(survey.getQuestions());
+        survey.getQuestions().forEach(question -> Hibernate.initialize(question.getAnswers()));
     }
 }

@@ -17,7 +17,6 @@ input QuestionDTOInput{
 type ChosenAnswerDTO{
     questionDTO: QuestionDTO,
     answerDTOS: [AnswerDTO]
-#    userSurveyDTO: [UserSurveyDTO]
 }
 
 type SurveyDTO{
@@ -35,9 +34,6 @@ type Query{
     getAnswers: [AnswerDTO!]
     getSurveyByName(name: String!): SurveyDTO
     getUserSurveyById(id: ID!): UserSurveyDTO
-#    getChosenAnswersByUserSurvey(userSurveyId: ID!): [ChosenAnswerDTO]
-#    getSurveys: [Survey!]
-#    getSurveyByName(name: String): Survey
 }
 
 type Mutation {

@@ -46,41 +46,30 @@ public class SurveyQuery implements GraphQLQueryResolver {
         this.surveyService = surveyService;
     }
 
+    @ResponseStatus(HttpStatus.OK)
     public List<QuestionDTO> getQuestions() {
         return questionService.findAll().stream()
                 .map(QuestionTransformer::createDTO)
                 .collect(Collectors.toList());
     }
 
+    @ResponseStatus(HttpStatus.OK)
     public List<AnswerDTO> getAnswers() {
         return answerService.findAll().stream()
                 .map(AnswerTransformer::createDTO)
                 .collect(Collectors.toList());
     }
 
-    public List<ChosenAnswerDTO> getChosenAnswersByUserSurvey(long id){
-        Optional<Set<ChosenAnswer>> userSurveyChosenAnswers = chosenAnswerService.findByUserSurveyId(id);
-        return userSurveyChosenAnswers.map(chosenAnswers -> chosenAnswers
-                .stream()
-                .map(ChosenAnswerTransformer::createDTO)
-                .collect(Collectors.toList())).orElse(Collections.emptyList());
-    }
-
+    @ResponseStatus(HttpStatus.OK)
     public SurveyDTO getSurveyByName(String name){
         Optional<Survey> survey = surveyService.findByName(name);
         return survey.map(SurveyTransformer::createDTO).orElse(null);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     public UserSurveyDTO getUserSurveyById(long id){
         Optional<UserSurvey> userSurvey = userSurveyService.findById(id);
         return userSurvey.map(UserSurveyTransformer::createDTO).orElse(null);
     }
 
-//    public List<Survey> getSurveys() {
-//        return surveyService.findAll();
-//    }
-//
-//    public Optional<Survey> getSurveyByName(String name) {
-//        return surveyService.findByName(name);
-//    }
 }
