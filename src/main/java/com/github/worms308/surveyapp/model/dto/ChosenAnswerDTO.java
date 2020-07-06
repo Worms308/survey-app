@@ -7,7 +7,7 @@ import java.util.Set;
 @Data
 public class ChosenAnswerDTO {
 
-    private QuestionDTO question;
+    private QuestionDTO questionDTO;
     private Set<AnswerDTO> answerDTOS;
-    private UserSurveyDTO userSurveyDTO;
+//    private UserSurveyDTO userSurveyDTO;
 }

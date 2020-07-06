@@ -8,5 +8,5 @@ import java.util.Set;
 public class SurveyDTO {
 
     private String name;
-    private Set<QuestionDTO> questions;
+    private Set<QuestionDTO> questionDTOS;
 }

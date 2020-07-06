@@ -4,18 +4,21 @@ import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.github.worms308.surveyapp.model.ChosenAnswer;
 import com.github.worms308.surveyapp.model.Question;
 import com.github.worms308.surveyapp.model.Survey;
-import com.github.worms308.surveyapp.model.dto.AnswerDTO;
-import com.github.worms308.surveyapp.model.dto.ChosenAnswerDTO;
-import com.github.worms308.surveyapp.model.dto.QuestionDTO;
-import com.github.worms308.surveyapp.model.transformer.AnswerTransformer;
-import com.github.worms308.surveyapp.model.transformer.ChosenAnswerTransformer;
-import com.github.worms308.surveyapp.model.transformer.QuestionTransformer;
+import com.github.worms308.surveyapp.model.UserSurvey;
+import com.github.worms308.surveyapp.model.dto.*;
+import com.github.worms308.surveyapp.model.transformer.*;
 import com.github.worms308.surveyapp.service.*;
+import org.hibernate.Hibernate;
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -55,9 +58,23 @@ public class SurveyQuery implements GraphQLQueryResolver {
                 .collect(Collectors.toList());
     }
 
-//    public Set<ChosenAnswerDTO> getChosenAnswersByUserSurvey(long id){
-//        return chosenAnswerService.findByUserSurveyId(id).map(ChosenAnswerTransformer::createDTO);
-//    }
+    public List<ChosenAnswerDTO> getChosenAnswersByUserSurvey(long id){
+        Optional<Set<ChosenAnswer>> userSurveyChosenAnswers = chosenAnswerService.findByUserSurveyId(id);
+        return userSurveyChosenAnswers.map(chosenAnswers -> chosenAnswers
+                .stream()
+                .map(ChosenAnswerTransformer::createDTO)
+                .collect(Collectors.toList())).orElse(Collections.emptyList());
+    }
+
+    public SurveyDTO getSurveyByName(String name){
+        Optional<Survey> survey = surveyService.findByName(name);
+        return survey.map(SurveyTransformer::createDTO).orElse(null);
+    }
+
+    public UserSurveyDTO getUserSurveyById(long id){
+        Optional<UserSurvey> userSurvey = userSurveyService.findById(id);
+        return userSurvey.map(UserSurveyTransformer::createDTO).orElse(null);
+    }
 
 //    public List<Survey> getSurveys() {
 //        return surveyService.findAll();

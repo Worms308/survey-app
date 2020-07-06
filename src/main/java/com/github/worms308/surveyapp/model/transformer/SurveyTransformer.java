@@ -13,7 +13,7 @@ public class SurveyTransformer {
     public static Survey createEntity(SurveyDTO surveyDTO){
         Survey survey = new Survey();
         survey.setQuestions(
-                surveyDTO.getQuestions()
+                surveyDTO.getQuestionDTOS()
                 .stream()
                 .map(QuestionTransformer::createEntity)
                 .collect(Collectors.toSet())
@@ -25,7 +25,7 @@ public class SurveyTransformer {
 
     public static SurveyDTO createDTO(Survey survey){
         SurveyDTO surveyDTO = new SurveyDTO();
-        surveyDTO.setQuestions(
+        surveyDTO.setQuestionDTOS(
                 survey.getQuestions()
                 .stream()
                 .map(QuestionTransformer::createDTO)

@@ -4,7 +4,6 @@ import com.github.worms308.surveyapp.model.ChosenAnswer;
 import com.github.worms308.surveyapp.model.dto.ChosenAnswerDTO;
 import org.springframework.beans.BeanUtils;
 
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ChosenAnswerTransformer {
@@ -20,8 +19,8 @@ public class ChosenAnswerTransformer {
                 .map(AnswerTransformer::createDTO)
                 .collect(Collectors.toSet())
         );
-        chosenAnswerDTO.setQuestion(QuestionTransformer.createDTO(chosenAnswers.getQuestion()));
-        chosenAnswerDTO.setUserSurveyDTO(UserSurveyTransformer.createDTO(chosenAnswers.getUserSurvey()));
+        chosenAnswerDTO.setQuestionDTO(QuestionTransformer.createDTO(chosenAnswers.getQuestion()));
+//        chosenAnswerDTO.setUserSurveyDTO(UserSurveyTransformer.createDTO(chosenAnswers.getUserSurvey()));
 
         BeanUtils.copyProperties(chosenAnswers, chosenAnswerDTO);
         return chosenAnswerDTO;
@@ -35,8 +34,8 @@ public class ChosenAnswerTransformer {
                 .map(AnswerTransformer::createEntity)
                 .collect(Collectors.toSet())
         );
-        chosenAnswer.setQuestion(QuestionTransformer.createEntity(chosenAnswerDTO.getQuestion()));
-        chosenAnswer.setUserSurvey(UserSurveyTransformer.createEntity(chosenAnswerDTO.getUserSurveyDTO()));
+        chosenAnswer.setQuestion(QuestionTransformer.createEntity(chosenAnswerDTO.getQuestionDTO()));
+//        chosenAnswer.setUserSurvey(UserSurveyTransformer.createEntity(chosenAnswerDTO.getUserSurveyDTO()));
 
         BeanUtils.copyProperties(chosenAnswerDTO, chosenAnswer);
         return chosenAnswer;

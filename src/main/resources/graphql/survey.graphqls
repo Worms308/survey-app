@@ -1,6 +1,3 @@
-#input AnswerInput{
-#    value: String
-#}
 type AnswerDTO {
     value: String
 }
@@ -17,14 +14,28 @@ input QuestionDTOInput{
     answerDTOS: [AnswerDTOInput!]
 }
 
-#type SurveyDTO{
-#    name: String,
-#    questions: [Question!]
-#}
+type ChosenAnswerDTO{
+    questionDTO: QuestionDTO,
+    answerDTOS: [AnswerDTO]
+#    userSurveyDTO: [UserSurveyDTO]
+}
+
+type SurveyDTO{
+    name: String,
+    questionDTOS: [QuestionDTO!]
+}
+
+type UserSurveyDTO{
+    survey: SurveyDTO,
+    chosenAnswersDTOS: [ChosenAnswerDTO!]
+}
 
 type Query{
     getQuestions: [QuestionDTO!]
     getAnswers: [AnswerDTO!]
+    getSurveyByName(name: String!): SurveyDTO
+    getUserSurveyById(id: ID!): UserSurveyDTO
+#    getChosenAnswersByUserSurvey(userSurveyId: ID!): [ChosenAnswerDTO]
 #    getSurveys: [Survey!]
 #    getSurveyByName(name: String): Survey
 }

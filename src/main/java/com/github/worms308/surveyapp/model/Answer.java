@@ -1,12 +1,12 @@
 package com.github.worms308.surveyapp.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "answer")
 public class Answer {

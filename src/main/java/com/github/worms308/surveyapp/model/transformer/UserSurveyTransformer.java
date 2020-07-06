@@ -14,7 +14,7 @@ public class UserSurveyTransformer {
         UserSurvey userSurvey = new UserSurvey();
         userSurvey.setSurvey(SurveyTransformer.createEntity(userSurveyDTO.getSurvey()));
         userSurvey.setChosenAnswers(
-                userSurveyDTO.getChosenAnswers()
+                userSurveyDTO.getChosenAnswersDTOS()
                 .stream()
                 .map(ChosenAnswerTransformer::createEntity)
                 .collect(Collectors.toSet())
@@ -26,7 +26,7 @@ public class UserSurveyTransformer {
 
     public static UserSurveyDTO createDTO(UserSurvey userSurvey){
         UserSurveyDTO userSurveyDTO = new UserSurveyDTO();
-        userSurveyDTO.setChosenAnswers(
+        userSurveyDTO.setChosenAnswersDTOS(
                 userSurvey.getChosenAnswers()
                 .stream()
                 .map(ChosenAnswerTransformer::createDTO)
