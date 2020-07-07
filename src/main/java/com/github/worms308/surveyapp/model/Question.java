@@ -16,8 +16,12 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "question_id")
     private Long id;
-    @Column(name = "value", nullable = false, unique = true)
-    private String value;
+
+    @Column(name = "question_value", nullable = false, unique = true)
+    private String questionValue;
+
+    @Column(name = "multi_choice", nullable = false)
+    private Boolean multiChoice;
 
     @ManyToMany
     @JoinTable(
@@ -27,7 +31,7 @@ public class Question {
     )
     private Set<Answer> answers;
 
-    public Question(String value) {
-        this.value = value;
+    public Question(String questionValue) {
+        this.questionValue = questionValue;
     }
 }

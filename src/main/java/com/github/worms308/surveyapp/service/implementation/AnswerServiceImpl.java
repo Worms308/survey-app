@@ -27,6 +27,8 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     public Answer save(Answer item) {
+        Optional<Answer> answerFromRepository = answerRepository.findByAnswerValue(item.getAnswerValue());
+        answerFromRepository.ifPresent(answer -> item.setId(answer.getId()));
         return answerRepository.save(item);
     }
 }

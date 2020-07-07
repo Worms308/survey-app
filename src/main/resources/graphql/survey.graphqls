@@ -1,16 +1,16 @@
 type AnswerDTO {
-    value: String
+    answerValue: String
 }
 input AnswerDTOInput {
-    value: String
+    answerValue: String
 }
 
 type QuestionDTO{
-    value: String,
+    questionValue: String,
     answerDTOS: [AnswerDTO!]
 }
 input QuestionDTOInput{
-    value: String,
+    questionValue: String,
     answerDTOS: [AnswerDTOInput!]
 }
 
@@ -22,6 +22,10 @@ type ChosenAnswerDTO{
 type SurveyDTO{
     name: String,
     questionDTOS: [QuestionDTO!]
+}
+input SurveyDTOInput{
+    name: String,
+    questionDTOS: [QuestionDTOInput!]
 }
 
 type UserSurveyDTO{
@@ -39,4 +43,5 @@ type Query{
 type Mutation {
     createAnswer(answer: AnswerDTOInput!): AnswerDTO
     createQuestion(question: QuestionDTOInput!): QuestionDTO
+    createSurvey(survey: SurveyDTOInput!): SurveyDTO
 }

@@ -1,7 +1,8 @@
 package com.github.worms308.surveyapp.model;
 
-import lombok.*;
-import org.checkerframework.checker.units.qual.C;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -18,11 +19,12 @@ public class UserSurvey {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_survey_id")
     private Long id;
-    @Column(name = "date")
+
+    @Column(name = "date", nullable = false)
     private LocalDate date;
 
     @ManyToOne
-    @JoinColumn(name = "survey_id")
+    @JoinColumn(name = "survey_id", nullable = false)
     private Survey survey;
 
     @OneToMany

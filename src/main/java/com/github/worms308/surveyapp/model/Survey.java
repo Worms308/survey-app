@@ -1,10 +1,8 @@
 package com.github.worms308.surveyapp.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-import org.checkerframework.checker.units.qual.C;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -20,8 +18,12 @@ public class Survey {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "survey_id")
     private Long id;
+
     @Column(name = "name", nullable = false, unique = true)
     private String name;
+
+    @Column(name = "description", length = 4000)
+    private String description;
 
     @ManyToMany
     private Set<Question> questions;
@@ -29,8 +31,4 @@ public class Survey {
     @OneToMany
     @JoinColumn(name = "survey_id")
     private Set<UserSurvey> userSurveys;
-
-    public Survey(String name) {
-        this.name = name;
-    }
 }

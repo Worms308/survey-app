@@ -3,10 +3,13 @@ package com.github.worms308.surveyapp.api;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.github.worms308.surveyapp.model.Answer;
 import com.github.worms308.surveyapp.model.Question;
+import com.github.worms308.surveyapp.model.Survey;
 import com.github.worms308.surveyapp.model.dto.AnswerDTO;
 import com.github.worms308.surveyapp.model.dto.QuestionDTO;
+import com.github.worms308.surveyapp.model.dto.SurveyDTO;
 import com.github.worms308.surveyapp.model.transformer.AnswerTransformer;
 import com.github.worms308.surveyapp.model.transformer.QuestionTransformer;
+import com.github.worms308.surveyapp.model.transformer.SurveyTransformer;
 import com.github.worms308.surveyapp.service.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +50,12 @@ public class SurveyMutation implements GraphQLMutationResolver {
                 QuestionTransformer.createEntity(questionDTO)
         );
         return QuestionTransformer.createDTO(question);
+    }
+
+    public SurveyDTO createSurvey(SurveyDTO surveyDTO){
+        Survey survey = surveyService.save(
+                SurveyTransformer.createEntity(surveyDTO)
+        );
+        return SurveyTransformer.createDTO(survey);
     }
 }

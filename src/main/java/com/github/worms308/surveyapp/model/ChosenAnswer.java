@@ -27,7 +27,7 @@ public class ChosenAnswer {
     private Set<Answer> answers;
 
     @ManyToOne
-    @JoinColumn(name = "question_id")
+    @JoinColumn(name = "question_id", nullable = false)
     private Question question;
 
     @ManyToOne

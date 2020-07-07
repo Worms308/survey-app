@@ -4,6 +4,7 @@ import com.github.worms308.surveyapp.model.Answer;
 import com.github.worms308.surveyapp.model.Question;
 import com.github.worms308.surveyapp.repository.AnswerRepository;
 import com.github.worms308.surveyapp.repository.QuestionRepository;
+import com.github.worms308.surveyapp.service.AnswerService;
 import com.github.worms308.surveyapp.service.QuestionService;
 import lombok.AllArgsConstructor;
 import org.hibernate.Hibernate;
@@ -21,7 +22,7 @@ import java.util.stream.Stream;
 public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionRepository questionRepository;
-    private final AnswerRepository answerRepository;
+    private final AnswerService answerService;
 
     @Override
     public Optional<Question> findById(long id) {
@@ -44,9 +45,8 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     private Set<Answer> saveOrUpdateAnswers(Set<Answer> answers){
-        return answers.stream().map(answer -> {
-            Optional<Answer> answerFromRepo = answerRepository.findByValue(answer.getValue());
-            return answerFromRepo.orElseGet(() -> answerRepository.save(answer));
-        }).collect(Collectors.toSet());
+        return answers.stream()
+                .map(answerService::save)
+                .collect(Collectors.toSet());
     }
 }

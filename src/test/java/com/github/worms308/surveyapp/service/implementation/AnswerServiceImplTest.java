@@ -39,10 +39,10 @@ class AnswerServiceImplTest {
     void shouldGetValuesOfAnswers(){
         List<Answer> allAnswers = answerService.findAll();
         Optional<Answer> optionalYes = allAnswers.stream()
-                .filter(answer -> "Yes".equalsIgnoreCase(answer.getValue()))
+                .filter(answer -> "Yes".equalsIgnoreCase(answer.getAnswerValue()))
                 .findFirst();
         Optional<Answer> optionalNo = allAnswers.stream()
-                .filter(answer -> "No".equalsIgnoreCase(answer.getValue()))
+                .filter(answer -> "No".equalsIgnoreCase(answer.getAnswerValue()))
                 .findFirst();
 
         assertTrue(optionalYes.isPresent() && optionalNo.isPresent());
@@ -51,8 +51,8 @@ class AnswerServiceImplTest {
     private void addTwoAnswersToRepository(){
         Answer answerYes = new Answer();
         Answer answerNo = new Answer();
-        answerYes.setValue("Yes");
-        answerNo.setValue("No");
+        answerYes.setAnswerValue("Yes");
+        answerNo.setAnswerValue("No");
 
         answerRepository.save(answerYes);
         answerRepository.save(answerNo);

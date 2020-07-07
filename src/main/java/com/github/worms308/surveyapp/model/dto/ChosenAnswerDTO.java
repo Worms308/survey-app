@@ -9,5 +9,4 @@ public class ChosenAnswerDTO {
 
     private QuestionDTO questionDTO;
     private Set<AnswerDTO> answerDTOS;
-//    private UserSurveyDTO userSurveyDTO;
 }

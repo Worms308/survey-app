@@ -15,10 +15,8 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "answer_id")
     private Long id;
-    @Column(name = "value", nullable = false, unique = true)
-    private String value;
 
-    public Answer(String value) {
-        this.value = value;
-    }
+    @Column(name = "answer_value", nullable = false, unique = true)
+    private String answerValue;
+
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -44,6 +45,7 @@ public class InitMockDB {
     private UserSurvey initUserSurvey(Survey survey, ChosenAnswer... chosenAnswers) {
         UserSurvey userSurvey = new UserSurvey();
         userSurvey.setSurvey(survey);
+        userSurvey.setDate(LocalDate.of(2020, 8, 20));
         userSurvey.setChosenAnswers(Arrays.stream(chosenAnswers).collect(Collectors.toSet()));
         return userSurveyRepository.save(userSurvey);
     }
@@ -64,12 +66,15 @@ public class InitMockDB {
 
     private Question initQuestion(String question, Answer... answers) {
         Question result = new Question(question);
+        result.setMultiChoice(true);
         result.setAnswers(Arrays.stream(answers).collect(Collectors.toSet()));
         return questionRepository.save(result);
     }
 
     private Answer initAnswer(String answer) {
-        return answerRepository.save(new Answer(answer));
+        Answer answerLocal = new Answer();
+        answerLocal.setAnswerValue(answer);
+        return answerRepository.save(answerLocal);
     }
 
 }

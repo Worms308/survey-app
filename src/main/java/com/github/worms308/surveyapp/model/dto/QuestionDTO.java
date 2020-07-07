@@ -6,6 +6,6 @@ import java.util.Set;
 
 @Data
 public class QuestionDTO {
-    private String value;
+    private String questionValue;
     private Set<AnswerDTO> answerDTOS;
 }
