@@ -1,27 +1,21 @@
 package com.github.worms308.surveyapp.api;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import com.github.worms308.surveyapp.model.ChosenAnswer;
-import com.github.worms308.surveyapp.model.Question;
+import com.github.worms308.surveyapp.exception.entity.SurveyNotFoundException;
+import com.github.worms308.surveyapp.exception.entity.UserSurveyNotFoundException;
 import com.github.worms308.surveyapp.model.Survey;
 import com.github.worms308.surveyapp.model.UserSurvey;
 import com.github.worms308.surveyapp.model.dto.*;
 import com.github.worms308.surveyapp.model.transformer.*;
 import com.github.worms308.surveyapp.service.*;
-import org.hibernate.Hibernate;
-import org.omg.CORBA.PUBLIC_MEMBER;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component("SurveyQuery")
@@ -61,15 +55,19 @@ public class SurveyQuery implements GraphQLQueryResolver {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    public SurveyDTO getSurveyByName(String name){
+    public SurveyDTO getSurveyByName(String name) throws SurveyNotFoundException {
         Optional<Survey> survey = surveyService.findByName(name);
-        return survey.map(SurveyTransformer::createDTO).orElse(null);
+        return survey.map(SurveyTransformer::createDTO).orElseThrow(
+                () -> new SurveyNotFoundException("Survey [" + name + "] not found.")
+        );
     }
 
     @ResponseStatus(HttpStatus.OK)
-    public UserSurveyDTO getUserSurveyById(long id){
+    public UserSurveyDTO getUserSurveyById(long id) throws UserSurveyNotFoundException {
         Optional<UserSurvey> userSurvey = userSurveyService.findById(id);
-        return userSurvey.map(UserSurveyTransformer::createDTO).orElse(null);
+        return userSurvey.map(UserSurveyTransformer::createDTO).orElseThrow(
+                ()-> new UserSurveyNotFoundException("UserSurvey id=[" + id + "] not found.")
+        );
     }
 
 }

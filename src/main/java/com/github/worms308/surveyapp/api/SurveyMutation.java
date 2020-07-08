@@ -14,7 +14,9 @@ import com.github.worms308.surveyapp.service.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Component
 public class SurveyMutation implements GraphQLMutationResolver {
@@ -38,6 +40,7 @@ public class SurveyMutation implements GraphQLMutationResolver {
         this.surveyService = surveyService;
     }
 
+    @ResponseStatus(HttpStatus.OK)
     public AnswerDTO createAnswer(AnswerDTO answerDTO) {
         Answer answer = answerService.save(
                 AnswerTransformer.createEntity(answerDTO)
@@ -45,6 +48,7 @@ public class SurveyMutation implements GraphQLMutationResolver {
         return AnswerTransformer.createDTO(answer);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     public QuestionDTO createQuestion(QuestionDTO questionDTO){
         Question question = questionService.save(
                 QuestionTransformer.createEntity(questionDTO)
@@ -52,6 +56,7 @@ public class SurveyMutation implements GraphQLMutationResolver {
         return QuestionTransformer.createDTO(question);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     public SurveyDTO createSurvey(SurveyDTO surveyDTO){
         Survey survey = surveyService.save(
                 SurveyTransformer.createEntity(surveyDTO)
